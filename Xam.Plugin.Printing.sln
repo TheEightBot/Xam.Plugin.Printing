@@ -1,0 +1,29 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xam.Plugin.Printing", "Xam.Plugin.Printing\Xam.Plugin.Printing.csproj", "{084D897B-B789-4651-B68B-E2E62B6AA750}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xam.Plugin.Printing.iOS", "Xam.Plugin.Printing.iOS\Xam.Plugin.Printing.iOS.csproj", "{A9202F0C-9F65-4CEA-857D-BEE1F276B664}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xam.Plugin.Printing.Droid", "Xam.Plugin.Printing.Droid\Xam.Plugin.Printing.Droid.csproj", "{E51A517D-3FEC-4928-996D-2E69396AE535}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{084D897B-B789-4651-B68B-E2E62B6AA750}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{084D897B-B789-4651-B68B-E2E62B6AA750}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{084D897B-B789-4651-B68B-E2E62B6AA750}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{084D897B-B789-4651-B68B-E2E62B6AA750}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A9202F0C-9F65-4CEA-857D-BEE1F276B664}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A9202F0C-9F65-4CEA-857D-BEE1F276B664}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A9202F0C-9F65-4CEA-857D-BEE1F276B664}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A9202F0C-9F65-4CEA-857D-BEE1F276B664}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E51A517D-3FEC-4928-996D-2E69396AE535}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E51A517D-3FEC-4928-996D-2E69396AE535}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E51A517D-3FEC-4928-996D-2E69396AE535}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E51A517D-3FEC-4928-996D-2E69396AE535}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
