@@ -37,7 +37,6 @@ namespace Plugin.Printing.iOS
 			});
 		}
 
-		//HACK: Fix this up...
 		public async Task<bool> PrintWeb(string jobName, string url){
 			var printInfo = UIPrintInfo.PrintInfo;
 			printInfo.Duplex = UIPrintInfoDuplex.LongEdge;
