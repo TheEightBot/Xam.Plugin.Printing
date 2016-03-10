@@ -2,6 +2,7 @@
 using Android.Content;
 using Android.Print;
 using Android.Webkit;
+using System.Threading.Tasks;
 
 namespace Plugin.Printing.Droid
 {
@@ -28,21 +29,38 @@ namespace Plugin.Printing.Droid
 				null);
 		}
 
-		public void PrintWeb(string jobName, string url){
+		public Task<bool> PrintWeb(string jobName, string url){
 			var printMgr = _context.GetSystemService(Android.Content.Context.PrintService) as PrintManager;
 
 			if(printMgr == null){
 				//do something here
-				return;
+				return Task.FromResult(false);
 			}
 
 			var webView = new WebView (_context);
-			webView.SetWebViewClient (new PrintWebViewClient ());
+
+			var tcs = new TaskCompletionSource<bool> ();
+
+			webView.SetWebViewClient (new PrintWebViewClient (_context, tcs));
 
 			webView.LoadUrl (url);
+
+			return tcs.Task;
 		}
 
 		class PrintWebViewClient : WebViewClient {
+
+			Context _context;
+
+			TaskCompletionSource<bool> _tcs;
+
+			public PrintWebViewClient (Context context, TaskCompletionSource<bool> tcs)
+			{
+				_context = context;
+
+				_tcs = tcs;
+			}
+
 			public override bool ShouldOverrideUrlLoading (WebView view, string url)
 			{
 				return false;
@@ -54,20 +72,44 @@ namespace Plugin.Printing.Droid
 
 				view.Dispose ();
 				view = null;
+
+				_context = null;
+
+				_tcs.TrySetResult (true);
+			}
+
+			public override void OnReceivedError (WebView view, ClientError errorCode, string description, string failingUrl)
+			{
+				_tcs.TrySetResult (false);
+			}
+
+			public override void OnReceivedHttpAuthRequest (WebView view, HttpAuthHandler handler, string host, string realm)
+			{
+				_tcs.TrySetResult (false);
+			}
+
+			public override void OnReceivedSslError (WebView view, SslErrorHandler handler, Android.Net.Http.SslError error)
+			{
+				_tcs.TrySetResult (false);
 			}
 
 			private void PerformWebPrint(WebView webView){
-				var printMgr = _context.GetSystemService(Android.Content.Context.PrintService) as PrintManager;
+				try {
+					var printMgr = _context.GetSystemService(Android.Content.Context.PrintService) as PrintManager;
 
-				if(printMgr == null){
-					//do something here
-					return;
+					if(printMgr == null){
+						//do something here
+						return;
+					}
+
+					printMgr.Print(
+						webView.Url,
+						webView.CreatePrintDocumentAdapter(),
+						null);
+				} catch (Exception ex) {
+					_tcs.TrySetException(ex);
 				}
 
-				printMgr.Print(
-					webView.Url,
-					webView.CreatePrintDocumentAdapter(),
-					null);
 			}
 		}
 	}

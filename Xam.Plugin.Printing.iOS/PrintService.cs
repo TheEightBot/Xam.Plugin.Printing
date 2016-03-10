@@ -38,7 +38,7 @@ namespace Plugin.Printing.iOS
 		}
 
 		//HACK: Fix this up...
-		public async void PrintWeb(string jobName, string url){
+		public async Task<bool> PrintWeb(string jobName, string url){
 			var printInfo = UIPrintInfo.PrintInfo;
 			printInfo.Duplex = UIPrintInfoDuplex.LongEdge;
 			printInfo.OutputType = UIPrintInfoOutputType.General;
@@ -60,7 +60,10 @@ namespace Plugin.Printing.iOS
 
 			webView.LoadFinished += loadFinished;
 
-			await tsc.Task;
+			var result = await tsc.Task;
+
+			if (!result)
+				return false;
 
 			webView.LoadFinished -= loadFinished;
 
@@ -73,6 +76,8 @@ namespace Plugin.Printing.iOS
 					System.Diagnostics.Debug.WriteLine("Failed to print");
 				}
 			});
+
+			return true;
 		}
 	}
 }

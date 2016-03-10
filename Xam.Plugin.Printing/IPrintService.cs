@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 
 namespace Plugin.Printing
 {
@@ -6,7 +7,7 @@ namespace Plugin.Printing
 	{
 		void PrintFile(string jobName, string pdfPath);
 
-		void PrintWeb(string jobName, string url);
+		Task<bool> PrintWeb(string jobName, string url);
 	}
 }
 
